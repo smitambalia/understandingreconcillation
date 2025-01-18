@@ -1,36 +1,36 @@
-import { useState } from "react";
 import "./App.css";
-
+import { useState } from "react";
 function App() {
-  const [isStudent, setIsStudent] = useState(0);
-  function Input({ type, placeholder }) {
+  function Input({ type, placeholder , autoFocus}) {
     return (
       <div>
-        <input type={type} placeholder={placeholder} />
+        <input type={type} placeholder={placeholder}  autoFocus={autoFocus}/>
       </div>
     );
   }
+
+  const [focus, setFocus] = useState(false);
+
+  function handleFocus() {
+    setFocus(!focus);
+  }
+
   return (
     <>
       <form>
-        <Input type="text" placeholder="Enter your name" />
-        <br />
-        <input
-          type="checkbox"
-          id="student"
-          name="student"
-          value={isStudent}
-          onChange={() => setIsStudent(!isStudent)}
-        />
-
-        <label htmlFor="student">Are you a student?</label>
-        {isStudent ? (
-          <Input type="text" placeholder="Enter you school name" />
-        ) : 
-        (
-          <Input type="text" placeholder="Enter your company name" />
-        )
-        }
+        <div>
+          <label htmlFor="email">Email:</label>
+          <Input type="email" placeholder="Enter your email" autoFocus={focus} key="email" />
+        </div>
+        <br/>
+        <div>
+          <label htmlFor="password">Password:</label>
+          <Input type="password" placeholder="Enter your password" />
+        </div>
+        <br/>
+        <div>
+          <button type="button" onClick={handleFocus}>Submit</button> 
+        </div>
       </form>
     </>
   );
